@@ -1,0 +1,881 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 164 65% 27%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 37 78% 62%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 37 78% 62%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 164 65% 27%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Modam Pro Font Setup */
+@font-face {
+  font-family: "Modam Pro";
+  src: url("/fonts/modam-pro/ModamWeb-ExtraLight.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Modam Pro";
+  src: url("/fonts/modam-pro/ModamWeb-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Modam Pro";
+  src: url("/fonts/modam-pro/ModamWeb-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Modam Pro";
+  src: url("/fonts/modam-pro/ModamWeb-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Modam Pro";
+  src: url("/fonts/modam-pro/ModamWeb-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Modam Pro";
+  src: url("/fonts/modam-pro/ModamWeb-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Modam Pro";
+  src: url("/fonts/modam-pro/ModamWeb-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Modam Pro";
+  src: url("/fonts/modam-pro/ModamWeb-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Font optimization for Persian text */
+html,
+body,
+input,
+button,
+textarea,
+select {
+  font-family: "Modam Pro", sans-serif;
+  font-feature-settings: "ss01", "ss02", "ss03";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Improve readability for Persian text */
+p,
+li,
+span,
+div {
+  line-height: 1.8;
+  letter-spacing: -0.01em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* Adjust font weights for better readability */
+.font-light {
+  font-weight: 300;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-extrabold {
+  font-weight: 800;
+}
+
+.font-black {
+  font-weight: 900;
+}
+
+/* Enhanced navigation links */
+.nav-link {
+  @apply text-gray-700 hover:text-primary transition-colors duration-200 flex items-center relative;
+}
+
+.nav-link::after {
+  content: "";
+  @apply absolute bottom-0 left-0 right-0 h-0.5 bg-primary scale-x-0 transition-transform duration-300 origin-bottom-right;
+}
+
+.nav-link:hover::after {
+  @apply scale-x-100 origin-bottom-left;
+}
+
+/* Dropdown arrow minimal style */
+.dropdown-arrow-minimal {
+  @apply inline-flex items-center justify-center ml-1 transition-transform duration-300 text-gray-400;
+}
+
+/* Hover dropdown menu - new style for hover functionality */
+.hover-dropdown-menu {
+  @apply absolute top-full right-0 mt-1 w-56 bg-white rounded-lg shadow-lg py-2 z-50 opacity-0 invisible transform -translate-y-1 border border-gray-100 transition-all duration-200;
+  max-height: 0;
+  overflow: hidden;
+}
+
+/* Show dropdown on hover */
+.group:hover .hover-dropdown-menu {
+  @apply opacity-100 visible translate-y-0;
+  max-height: 500px;
+  transition: max-height 0.25s ease, opacity 0.2s ease, transform 0.2s ease, visibility 0s;
+}
+
+/* Rotate arrow on hover */
+.group:hover .dropdown-arrow-minimal {
+  @apply rotate-180 text-primary;
+}
+
+.dropdown-item {
+  @apply block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors duration-150 border-r-2 border-transparent hover:border-primary hover:pr-5;
+}
+
+/* Mobile dropdown menu */
+.mobile-dropdown-menu {
+  @apply max-h-0 overflow-hidden transition-all duration-200 ease-in-out;
+}
+
+.mobile-dropdown-menu.active {
+  @apply max-h-96;
+}
+
+/* Splash screen animations */
+@keyframes float-bubble {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100px) translateX(20px);
+    opacity: 0;
+  }
+}
+
+.floating-bubble {
+  animation: float-bubble 4s ease-in-out infinite;
+}
+
+.floating-bubble:nth-child(2n) {
+  animation-duration: 6s;
+  animation-delay: 1s;
+}
+
+.floating-bubble:nth-child(3n) {
+  animation-duration: 5s;
+  animation-delay: 2s;
+}
+
+/* Rest of your existing CSS */
+.countdown-item {
+  @apply bg-primary text-white rounded px-2 py-1 text-sm font-bold;
+}
+
+.star-rating {
+  @apply text-secondary;
+}
+
+.course-card {
+  @apply bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-lg overflow-hidden transition-all hover:shadow-lg border border-gray-700;
+}
+
+.course-card-content {
+  @apply p-6;
+}
+
+.course-card-title {
+  @apply text-lg font-bold mb-2;
+}
+
+.course-card-description {
+  @apply text-sm text-gray-300 mb-4;
+}
+
+.course-card-footer {
+  @apply flex justify-between items-center;
+}
+
+.course-card-price {
+  @apply text-lg font-bold text-secondary;
+}
+
+.course-card-button {
+  @apply bg-primary text-white px-4 py-2 rounded-md text-sm font-bold;
+}
+
+/* Dynamic background */
+.dynamic-bg {
+  position: relative;
+  overflow: hidden;
+  background-color: #f5f8f7; /* سفید مایل به سبز کمرنگ */
+}
+
+.dynamic-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(rgba(25, 114, 101, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 114, 101, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px; /* پترن بزرگتر */
+  z-index: 0;
+  transition: background-image 0.5s ease;
+}
+
+/* Wavy green pattern on scroll */
+.scrolled .dynamic-bg::before {
+  background-image: linear-gradient(rgba(25, 114, 101, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 114, 101, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px; /* پترن بزرگتر */
+}
+
+.scrolled .dynamic-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(25, 114, 101, 0.03) 0%, transparent 50%);
+  opacity: 0.7;
+  z-index: 0;
+  animation: pulse 8s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+/* Certificate badge */
+.certificate-badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary/20 text-secondary;
+}
+
+/* Category pills */
+.category-pill {
+  @apply px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary hover:bg-primary/20 transition-colors cursor-pointer;
+}
+
+.category-pill.active {
+  @apply bg-primary text-white;
+}
+
+/* Progress bar */
+.progress-bar {
+  @apply h-2 bg-gray-200 rounded-full overflow-hidden;
+}
+
+.progress-bar-fill {
+  @apply h-full bg-primary transition-all duration-300;
+}
+
+/* Blog card */
+.blog-card {
+  @apply bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 transition-all hover:shadow-md hover:border-primary/20;
+}
+
+.blog-card-image {
+  @apply relative h-48 w-full;
+}
+
+.blog-card-content {
+  @apply p-5;
+}
+
+.blog-card-title {
+  @apply text-xl font-bold mb-2 line-clamp-2;
+}
+
+.blog-card-excerpt {
+  @apply text-muted-foreground mb-4 line-clamp-3;
+}
+
+.blog-card-footer {
+  @apply flex items-center justify-between text-sm text-muted-foreground;
+}
+
+/* Instructor card */
+.instructor-card {
+  @apply bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100 transition-all hover:shadow-md;
+}
+
+.instructor-card-image {
+  @apply relative h-64 w-full;
+}
+
+.instructor-card-content {
+  @apply p-5;
+}
+
+.instructor-card-name {
+  @apply text-xl font-bold mb-1;
+}
+
+.instructor-card-title {
+  @apply text-primary text-sm mb-3;
+}
+
+.instructor-card-bio {
+  @apply text-muted-foreground mb-4;
+}
+
+.instructor-card-footer {
+  @apply flex items-center justify-between;
+}
+
+/* Dashboard sidebar */
+.dashboard-sidebar {
+  @apply bg-white border-l border-gray-200 h-full p-4;
+}
+
+.dashboard-sidebar-link {
+  @apply flex items-center space-x-3 space-x-reverse py-2 px-3 rounded-md text-gray-700 hover:bg-gray-100 hover:text-primary transition-colors;
+}
+
+.dashboard-sidebar-link.active {
+  @apply bg-primary/10 text-primary font-medium;
+}
+
+/* Dashboard card */
+.dashboard-card {
+  @apply bg-white rounded-lg border border-gray-100 shadow-sm p-5;
+}
+
+.dashboard-card-title {
+  @apply text-lg font-bold mb-1;
+}
+
+.dashboard-card-value {
+  @apply text-3xl font-bold text-primary;
+}
+
+/* Payment methods */
+.payment-method {
+  @apply border rounded-lg p-4 flex items-center space-x-4 space-x-reverse cursor-pointer transition-all;
+}
+
+.payment-method.selected {
+  @apply border-primary bg-primary/5;
+}
+
+.payment-method-radio {
+  @apply h-5 w-5 text-primary;
+}
+
+.payment-method-logo {
+  @apply h-8 w-auto;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* SEO optimization */
+.seo-title {
+  @apply text-3xl font-bold mb-4;
+}
+
+.seo-description {
+  @apply text-muted-foreground max-w-2xl mx-auto;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  @apply flex items-center text-sm text-muted-foreground mb-6;
+}
+
+.breadcrumb-item {
+  @apply hover:text-primary transition-colors;
+}
+
+.breadcrumb-separator {
+  @apply mx-2;
+}
+
+/* Course details */
+.course-details-card {
+  @apply bg-white rounded-lg border border-gray-100 shadow-sm overflow-hidden;
+}
+
+.course-details-header {
+  @apply p-6 border-b;
+}
+
+.course-details-content {
+  @apply p-6;
+}
+
+.course-details-sidebar {
+  @apply bg-gray-50 p-6 rounded-lg border border-gray-100;
+}
+
+.course-curriculum-item {
+  @apply flex items-center justify-between p-3 border-b last:border-0 hover:bg-gray-50 transition-colors;
+}
+
+.course-curriculum-item-title {
+  @apply flex items-center;
+}
+
+.course-curriculum-item-icon {
+  @apply ml-2 text-primary;
+}
+
+.course-curriculum-item-duration {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Testimonial carousel */
+.testimonial-carousel {
+  @apply relative overflow-hidden;
+}
+
+.testimonial-slide {
+  @apply p-6 bg-white rounded-lg shadow-sm border border-gray-100;
+}
+
+.testimonial-navigation {
+  @apply flex justify-center mt-6 space-x-2;
+}
+
+.testimonial-dot {
+  @apply h-2 w-2 rounded-full bg-gray-300 transition-colors;
+}
+
+.testimonial-dot.active {
+  @apply bg-primary;
+}
+
+/* Highlight elements */
+.highlight-badge {
+  @apply bg-secondary text-white px-2 py-1 rounded-md text-xs font-medium;
+}
+
+.highlight-text {
+  @apply text-secondary font-medium;
+}
+
+.highlight-border {
+  @apply border-secondary;
+}
+
+.highlight-bg {
+  @apply bg-secondary/10;
+}
+
+/* Add these styles to your globals.css file */
+
+/* Featured courses section */
+.featured-courses-section {
+  background-color: #ffffff;
+  position: relative;
+}
+
+.course-card-modern {
+  background-color: #ffffff;
+  border-radius: 1rem;
+}
+
+/* Certificate section */
+.certification-section {
+  position: relative;
+}
+
+/* Animation for cards */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Search glow effect */
+.search-glow {
+  animation: pulse-glow 3s infinite alternate;
+  opacity: 0.6;
+}
+
+@keyframes pulse-glow {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.97);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(1.03);
+  }
+}
+
+/* Enhance input focus styles */
+.dark-hero input:focus {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8), 0 0 0 4px rgba(25, 114, 101, 0.5);
+  border-color: var(--primary);
+}
+
+/* Stats Cards */
+.stats-card {
+  @apply bg-white rounded-xl p-4 flex items-center gap-4 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.stats-icon-wrapper {
+  @apply w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stats-icon {
+  @apply h-6 w-6;
+}
+
+.stats-content {
+  @apply flex flex-col;
+}
+
+.stats-number {
+  @apply text-2xl font-bold;
+  background: linear-gradient(to right, #333333, #666666);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.stats-label {
+  @apply text-sm text-gray-600;
+}
+
+/* Improved Stats Cards */
+.stats-card-improved {
+  @apply border-0 shadow-md relative overflow-hidden transition-all duration-300;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+}
+
+.stats-card-improved::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid rgba(25, 114, 101, 0.1);
+  border-radius: inherit;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.stats-card-improved:hover::before {
+  border: 2px solid rgba(25, 114, 101, 0.3);
+  box-shadow: 0 0 20px rgba(25, 114, 101, 0.1);
+}
+
+.stats-card-improved::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(25, 114, 101, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.stats-card-improved:hover::after {
+  transform: translate(-50%, -50%) scale(3);
+  opacity: 1;
+}
+
+.stats-icon-wrapper-improved {
+  @apply w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0 bg-primary/10 transition-all duration-300;
+}
+
+.stats-card-improved:hover .stats-icon-wrapper-improved {
+  @apply bg-primary/20 transform scale-110;
+}
+
+/* Font Smoothing */
+* {
+  letter-spacing: -0.01em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -0.02em;
+}
+
+/* Improve line height for better readability */
+p,
+li {
+  line-height: 1.8;
+}
+
+/* Adjust font weights for better readability */
+.font-light {
+  font-weight: 300;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-extrabold {
+  font-weight: 800;
+}
+
+.font-black {
+  font-weight: 900;
+}
+
+/* Improve text contrast */
+.text-muted-foreground {
+  color: rgba(60, 60, 60, 0.8);
+}
+
+/* Dark Hero */
+.dark-hero {
+  position: relative;
+  overflow: hidden;
+  background-color: #e6f2ef;
+  color: #333333;
+}
+
+.dark-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(rgba(25, 114, 101, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 114, 101, 0.05) 1px, transparent 1px);
+  background-size: 80px 80px;
+  z-index: 0;
+}
+
+/* Nav Button Hover Effects */
+.nav-button-hover {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-button-hover:hover {
+  transform: scale(1.05);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.nav-button-hover::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(25, 114, 101, 0.2) 0%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.nav-button-hover:hover::after {
+  transform: translate(-50%, -50%) scale(2);
+  opacity: 1;
+}
+
+/* Improve login button text readability */
+.nav-button-hover {
+  border-width: 2px;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.nav-button-hover:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 8px rgba(25, 114, 101, 0.3);
+}
+
+.nav-icon-button {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-icon-button:hover {
+  transform: scale(1.1);
+}
+
+.nav-icon-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(25, 114, 101, 0.3) 0%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.nav-icon-button:hover::after {
+  transform: translate(-50%, -50%) scale(2);
+  opacity: 1;
+}
+
+/* Fix for icon visibility on hover */
+.nav-icon-button svg {
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.nav-icon-button:hover svg {
+  color: var(--primary);
+  filter: drop-shadow(0 0 2px rgba(25, 114, 101, 0.4));
+}
+
+/* Contact button specific hover effect */
+.nav-icon-button.bg-primary:hover {
+  background-color: #156256; /* Slightly darker shade of primary */
+  box-shadow: 0 0 10px rgba(25, 114, 101, 0.4);
+}
+
+.nav-icon-button.bg-primary:hover svg {
+  color: white;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+}
