@@ -18,13 +18,19 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Check if this is the first visit in this session
-    const hasVisited = sessionStorage.getItem("hasVisited")
-    if (hasVisited) {
-      setLoading(false)
+    // Only run on client-side
+    if (typeof window !== 'undefined') {
+      // Check if this is the first visit in this session
+      const hasVisited = sessionStorage.getItem("hasVisited")
+      if (hasVisited) {
+        setLoading(false)
+      } else {
+        // Set the flag for future page loads in this session
+        sessionStorage.setItem("hasVisited", "true")
+      }
     } else {
-      // Set the flag for future page loads in this session
-      sessionStorage.setItem("hasVisited", "true")
+      // On server-side, don't show loading
+      setLoading(false)
     }
   }, [])
 

@@ -1,11 +1,38 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 
 export default function SplashScreen({ finishLoading }: { finishLoading: () => void }) {
   const [counter, setCounter] = useState(0)
+  const [windowSize, setWindowSize] = useState({ width: 1000, height: 800 })
+  const animatedElements = useRef<{ x: number[]; y: number[] }[]>([])
+
+  // Initialize animated elements with safe default values
+  useEffect(() => {
+    // Only access window in browser environment
+    if (typeof window !== 'undefined') {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      })
+      
+      // Generate random positions for animated elements
+      animatedElements.current = Array(6).fill(0).map(() => ({
+        x: [
+          Math.random() * window.innerWidth,
+          Math.random() * window.innerWidth,
+          Math.random() * window.innerWidth,
+        ],
+        y: [
+          Math.random() * window.innerHeight,
+          Math.random() * window.innerHeight,
+          Math.random() * window.innerHeight,
+        ],
+      }))
+    }
+  }, [])
 
   useEffect(() => {
     const timer = setTimeout(() => finishLoading(), 4000)
@@ -126,26 +153,18 @@ export default function SplashScreen({ finishLoading }: { finishLoading: () => v
 
           {/* Animated elements */}
           <div className="absolute inset-0 pointer-events-none">
-            {[...Array(6)].map((_, index) => (
+            {animatedElements.current.map((positions, index) => (
               <motion.div
                 key={index}
                 className="absolute w-8 h-8 rounded-full bg-white/10"
                 initial={{
-                  x: Math.random() * window.innerWidth,
-                  y: Math.random() * window.innerHeight,
+                  x: positions.x[0] || 0,
+                  y: positions.y[0] || 0,
                   scale: 0,
                 }}
                 animate={{
-                  y: [
-                    Math.random() * window.innerHeight,
-                    Math.random() * window.innerHeight,
-                    Math.random() * window.innerHeight,
-                  ],
-                  x: [
-                    Math.random() * window.innerWidth,
-                    Math.random() * window.innerWidth,
-                    Math.random() * window.innerWidth,
-                  ],
+                  y: positions.y,
+                  x: positions.x,
                   scale: [0, 1.5, 0],
                 }}
                 transition={{
